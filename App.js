@@ -1,24 +1,32 @@
-import { SafeAreaView, StatusBar, StyleSheet, Text, View } from "react-native";
+import { StatusBar } from "react-native";
+import { ThemeProvider } from "styled-components/native";
+import { RestaurantsScreen } from "./src/features/restaurants/screens/restaurants.screen";
+import { theme } from "./src/infrastructure/theme";
+import {
+  useFonts as useOswald,
+  Oswald_400Regular,
+} from "@expo-google-fonts/oswald";
+import { useFonts as useLato, Lato_400Regular } from "@expo-google-fonts/lato";
 
 export default function App() {
+  const [oswaldLoaded] = useOswald({
+    Oswald_400Regular,
+  });
+
+  const [latoLoaded] = useLato({
+    Lato_400Regular,
+  });
+
+  if (!oswaldLoaded || !latoLoaded) {
+    return null;
+  }
+
   return (
     <>
-      <SafeAreaView style={styles.container}>
-        <View style={{ padding: 15, backgroundColor: "red" }}>
-          <Text>Search</Text>
-        </View>
-        <View style={{ flex: 1, padding: 15, backgroundColor: "green" }}>
-          <Text style={{ color: "white" }}>Starting here : </Text>
-        </View>
-      </SafeAreaView>
-      <StatusBar backgroundColor={"gray"} style="auto" />
+      <ThemeProvider theme={theme}>
+        <RestaurantsScreen />
+        <StatusBar backgroundColor={theme.colors.brand.primary} />
+      </ThemeProvider>
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "grey",
-  },
-});
