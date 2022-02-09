@@ -2,7 +2,7 @@ import React from "react";
 import { Image, StyleSheet, Text } from "react-native";
 import { Card } from "react-native-paper";
 import styled from "styled-components/native";
-import Svg, { SvgXml } from "react-native-svg";
+import { SvgXml } from "react-native-svg";
 import star from "../../../../assets/star";
 import open from "../../../../assets/open";
 
@@ -19,15 +19,35 @@ const Address = styled.Text`
 
 /*Create a styled component with the name 'RestaurantCard' as a 'Card' from 'react-native-paper'*/
 const RestaurantCard = styled(Card)`
-  background-color: ${(props) => props.theme.colors.bg.secondary};
+  background-color: ${(props) => props.theme.colors.brand.muted};
+  border-radius: 15px;
 `;
 
 const RestaurantCardCover = styled(Card.Cover)`
   background-color: ${(props) => props.theme.colors.bg.secondary};
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
 `;
 
 const Info = styled.View`
   padding: ${(props) => props.theme.space[3]};
+`;
+
+const Section = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const SectionEnd = styled.View`
+  flex-direction: row;
+  flex: 0.8;
+  justify-content: space-between;
+`;
+
+const Rating = styled.View`
+  flex-direction: row;
+  padding-vertical: ${(props) => props.theme.space[2]};
 `;
 
 export const RestaurantInfoCard = ({ restaurant = {} }) => {
@@ -50,23 +70,6 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
     isClosedTemporarily = true,
   } = restaurant;
 
-  const Section = styled.View`
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-  `;
-
-  const SectionEnd = styled.View`
-    flex-direction: row;
-    flex: 0.8;
-    justify-content: space-between;
-  `;
-
-  const Rating = styled.View`
-    flex-direction: row;
-    padding-vertical: ${(props) => props.theme.space[2]};
-  `;
-
   const ratingArray = Array.from(new Array(Math.floor(rating)));
 
   return (
@@ -76,7 +79,7 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
         <Title>{name}</Title>
         <Section>
           <Rating>
-            {ratingArray.map((value, index) => (
+            {ratingArray.map((_, index) => (
               <SvgXml key={index} xml={star} width={20} height={20} />
             ))}
           </Rating>
