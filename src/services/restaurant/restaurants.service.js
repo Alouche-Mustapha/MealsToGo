@@ -6,7 +6,7 @@ Create a new promise. Promise will take a function that takes two functions as a
 The "location" arg is given (key) so we can get the value (city name) from index.js (mocks object), if the location is not 
 found (not a valide key) we will call the reject funtion, else we will call the resolve function that return the result
 */
-export const restaurantsRequest = (location = "51.219448,4.402464") => {
+export const restaurantsRequest = (location) => {
   return new Promise((resolve, reject) => {
     const mock = mocks[location];
     if (!mock) {
@@ -29,6 +29,7 @@ export const restaurantsTransform = ({ results = [] }) => {
     });
     return {
       ...restaurant,
+      address: restaurant.vicinity,
       isOpen: restaurant.opening_hours && restaurant.opening_hours.open_now,
       isClosedTemporarily: results.business_status === "CLOSED_TEMPORARILY",
     };

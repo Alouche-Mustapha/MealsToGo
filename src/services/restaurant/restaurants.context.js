@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useMemo, createContext } from "react";
+import React, { useState, useEffect, createContext, useContext } from "react";
+import { LocationContext } from "../location/location.context";
 import {
   restaurantsRequest,
   restaurantsTransform,
@@ -14,13 +15,16 @@ export const RestaurantsContextProvider = ({ children }) => {
   const [restaurants, setRestaurants] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const { location } = useContext(LocationContext);
 
-  const retrieveRestaurants = () => {
+  /*Give it the location that is not formated as a string ()we have it as an object*/
+  const retrieveRestaurants = (loc) => {
     setIsLoading(true); //we are loading data
+    setRestaurants([]); // To rernder the component and setLoading to true (load on every search)
     // Preventing that we are loading data from real API
     setTimeout(() => {
       //Do a restaurants request(using default location) (dont forget that this is a promise)
-      restaurantsRequest() //The component from "restaurants.service.js" that is a promise
+      restaurantsRequest(loc) //The component from "restaurants.service.js" that is a promise
         .then(restaurantsTransform) //The result from above needs to be transformed
         .then((results) => {
           setIsLoading(false); //Set loading to false because we have successfuly got the data
@@ -33,10 +37,14 @@ export const RestaurantsContextProvider = ({ children }) => {
     }, 1000);
   };
 
-  /*Run this use effect when component mounts*/
+  /*Run this use effect when component mounts (rerendering RestaurantsContextProvider)*/
   useEffect(() => {
-    retrieveRestaurants();
-  }, []);
+    /*We need a location formed like a string "lang, lat" but we have it like "{lang: ..., lat: ...}"*/
+    if (location) {
+      const locationString = `${location.lat},${location.lng}`;
+      retrieveRestaurants(locationString);
+    }
+  }, [location]);
 
   return (
     /*After loading the restaurants let's provide them to the children*/

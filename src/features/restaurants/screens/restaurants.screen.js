@@ -1,18 +1,14 @@
 import React, { useContext } from "react";
-import { FlatList, View } from "react-native";
-import { Searchbar, ActivityIndicator, Colors } from "react-native-paper";
+import { FlatList } from "react-native";
+import { ActivityIndicator, Colors } from "react-native-paper";
 import styled from "styled-components/native";
+
 import { RestaurantInfoCard } from "../components/reataurant-info-card.component";
 import { SafeArea } from "../../../components/utility/safe-area.component";
 import { RestaurantsContext } from "../../../services/restaurant/restaurants.context";
+import { Search } from "../components/search.component";
 
 /*Some styled components that can be used,every styled componenet has an obejtct called "props"*/
-const SearchContainer = styled.View`
-  margin: ${(props) => props.theme.space[3]};
-  border: 1px solid black;
-  border-radius: 5px;
-`;
-
 const Space = styled.View`
   padding-bottom: ${(props) => props.theme.space[3]};
 `;
@@ -54,12 +50,7 @@ export const RestaurantsScreen = () => {
         </LoadingContainer>
       )}
       {/*The search abr on top of the screen*/}
-      <SearchContainer>
-        <Searchbar
-          placeholder="search"
-          style={{ backgroundColor: "#C6DAF7" }}
-        />
-      </SearchContainer>
+      <Search />
       {/*This a list that automatically iterate on the data array and renders every item of it*/}
       <RestaurantList
         data={restaurants}
