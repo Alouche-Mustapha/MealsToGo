@@ -34,7 +34,7 @@ export const RestaurantsContextProvider = ({ children }) => {
           setIsLoading(false); //Set loading to false because we are getting an error
           setError(error); //In case of an error we need to set it
         });
-    }, 1000);
+    }, 500);
   };
 
   /*Run this use effect when component mounts (rerendering RestaurantsContextProvider)*/

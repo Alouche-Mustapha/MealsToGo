@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { FlatList } from "react-native";
+import { FlatList, Pressable } from "react-native";
 import { ActivityIndicator, Colors } from "react-native-paper";
 import styled from "styled-components/native";
 
@@ -33,14 +33,16 @@ const LoadingContainer = styled.View`
   left: 50%;
 `;
 
-export const RestaurantsScreen = () => {
+/*This component is used as a screen in a stack navigation so he will get the prop "navigation "
+that containes all the properties and listeners*/
+export const RestaurantsScreen = ({ navigation }) => {
   /*
   Use the context in this child component. "restaurantsContext" is created in "restaurants.context.js" then we provided an 
   object to it that contains the restaurants list and the state of "loading" and the state of "error", all of that by using
   the declared components in "restaurants.service.js". After that we used the "RestaurantsContextProvider" in "App.js" to
   provide it to all the children, and now the "RestaurantScreen" component is using the context to set up our screen 
   */
-  const { restaurants, isLoading, error } = useContext(RestaurantsContext); //The context is an object with three props
+  const { restaurants, isLoading } = useContext(RestaurantsContext); //The context is an object with three props
   return (
     <SafeArea>
       {/*Render the activity indicator will loading the data*/}
@@ -56,14 +58,17 @@ export const RestaurantsScreen = () => {
         data={restaurants}
         renderItem={({ item }) => {
           return (
-            <Space>
-              {/*
-            The "RestaurantInfoCard" have the propretie "restaurant" that is an object that will be given to the default one
-            declared in "restaurant-info.component.js", so we need to give hin the "item" that is also an object from the 
-            array "restaurants"
-            */}
-              <RestaurantInfoCard restaurant={item} />
-            </Space>
+            /*"Pressable is a component that will make what  wrap inside of it able to be pressed"*/
+            <Pressable onPress={() => navigation.navigate("RestaurantDetail")}>
+              <Space>
+                {/*
+                The "RestaurantInfoCard" have the propretie "restaurant" that is an object that will be given to the default one
+                declared in "restaurant-info.component.js", so we need to give hin the "item" that is also an object from the 
+                array "restaurants"
+                */}
+                <RestaurantInfoCard restaurant={item} />
+              </Space>
+            </Pressable>
           );
         }}
         keyExtractor={(item) => item.name}
