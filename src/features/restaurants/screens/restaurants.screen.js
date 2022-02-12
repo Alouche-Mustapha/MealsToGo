@@ -8,7 +8,7 @@ import { SafeArea } from "../../../components/utility/safe-area.component";
 import { RestaurantsContext } from "../../../services/restaurant/restaurants.context";
 import { Search } from "../components/search.component";
 
-/*Some styled components that can be used,every styled componenet has an obejtct called "props"*/
+/*Some styled components that can be used,every styled componenet has an obeject called "props"*/
 const Space = styled.View`
   padding-bottom: ${(props) => props.theme.space[3]};
 `;
@@ -59,7 +59,13 @@ export const RestaurantsScreen = ({ navigation }) => {
         renderItem={({ item }) => {
           return (
             /*"Pressable is a component that will make what  wrap inside of it able to be pressed"*/
-            <Pressable onPress={() => navigation.navigate("RestaurantDetail")}>
+            <Pressable
+              onPress={() =>
+                /*When navigating to the next screen in the stack we will pass the current restaurant
+                as a property of an object to be able to retieve them in the restaurant detail*/
+                navigation.navigate("RestaurantDetail", { restaurant: item })
+              }
+            >
               <Space>
                 {/*
                 The "RestaurantInfoCard" have the propretie "restaurant" that is an object that will be given to the default one

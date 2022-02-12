@@ -1,10 +1,11 @@
 import React from "react";
-import { Image, StyleSheet, Text } from "react-native";
+import { Image, Text, View } from "react-native";
 import { Card } from "react-native-paper";
 import styled from "styled-components/native";
 import { SvgXml } from "react-native-svg";
 import star from "../../../../assets/star";
 import open from "../../../../assets/open";
+import closed from "../../../../assets/closed";
 
 /*Create a styled component with the name 'Title' as a 'Text' from 'StyledComponents'*/
 const Title = styled.Text`
@@ -35,19 +36,19 @@ const Info = styled.View`
 
 const Section = styled.View`
   flex-direction: row;
+  justify-content: space-between;
   align-items: center;
-  justify-content: space-between;
-`;
-
-const SectionEnd = styled.View`
-  flex-direction: row;
-  flex: 0.8;
-  justify-content: space-between;
 `;
 
 const Rating = styled.View`
   flex-direction: row;
   padding-vertical: ${(props) => props.theme.space[2]};
+`;
+
+const SectionEnd = styled.View`
+  flex: 1;
+  flex-direction: row;
+  justify-content: flex-end;
 `;
 
 export const RestaurantInfoCard = ({ restaurant = {} }) => {
@@ -65,9 +66,9 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
       "https://media-cdn.tripadvisor.com/media/photo-s/1a/08/d9/91/salle-du-restaurant.jpg",
     ],
     address = "Some random address",
-    isOpenNow = true,
+    isOpenNow,
     rating = 4,
-    isClosedTemporarily = true,
+    isClosedTemporarily = false,
     placeId,
   } = restaurant;
 
@@ -91,14 +92,37 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
           </Rating>
           <SectionEnd>
             {isClosedTemporarily && (
-              <Text style={{ color: "red", fontWeight: "bold" }}>
+              <Text
+                style={{
+                  color: "red",
+                  fontWeight: "bold",
+                }}
+              >
                 Closed Temporarily
               </Text>
             )}
-            {isOpenNow && <SvgXml xml={open} width={20} height={20} />}
+            {isOpenNow ? (
+              <SvgXml
+                xml={open}
+                width={20}
+                height={20}
+                style={{ marginLeft: 15 }}
+              />
+            ) : (
+              <SvgXml
+                xml={closed}
+                width={20}
+                height={20}
+                style={{ marginLeft: 15 }}
+              />
+            )}
             <Image
               source={{ uri: icon }}
-              style={{ width: 20, resizeMode: "cover" }}
+              style={{
+                width: 20,
+                resizeMode: "cover",
+                marginLeft: 15,
+              }}
             />
           </SectionEnd>
         </Section>
@@ -107,5 +131,3 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
     </RestaurantCard>
   );
 };
-
-const styles = StyleSheet.create({});

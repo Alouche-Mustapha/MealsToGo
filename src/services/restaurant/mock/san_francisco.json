@@ -20,7 +20,7 @@
             }
           }
         },
-        "ix": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
+        "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/restaurant-71.png",
         "name": "Zuni Café",
         "opening_hours": {
           "open_now": true
@@ -41,7 +41,7 @@
           "global_code": "",
         },
         "price_level": 3,
-        "rating": 4.4,
+        "rating": 2.4,
         "reference": "",
         "scope": "",
         "types": [
@@ -94,7 +94,7 @@
           "global_code": "",
         },
         "price_level": 2,
-        "rating": 4.5,
+        "rating": 3.5,
         "reference": "",
         "scope": "",
         "types": [
@@ -145,7 +145,7 @@
           "global_code": "",
         },
         "price_level": 2,
-        "rating": 4.3,
+        "rating": 1.3,
         "reference": "",
         "scope": "",
         "types": [
@@ -199,7 +199,7 @@
           "global_code": "",
         },
         "price_level": 3,
-        "rating": 4.3,
+        "rating": 5,
         "reference": "",
         "scope": "",
         "types": [
@@ -354,7 +354,7 @@
           "global_code": "",
         },
         "price_level": 1,
-        "rating": 4.4,
+        "rating": 1.4,
         "reference": "",
         "scope": "",
         "types": [
@@ -405,7 +405,7 @@
           "global_code": "",
         },
         "price_level": 2,
-        "rating": 4.5,
+        "rating": 3.5,
         "reference": "",
         "scope": "",
         "types": [
@@ -439,6 +439,9 @@
         "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/v1/png_71/bar-71.png",
         "name": "Bar Agricole",
         "permanently_closed": true,
+        "opening_hours": {
+          "open_now": false
+        },
         "photos": [
           {
             "height": 2791,
@@ -507,7 +510,7 @@
           "global_code": "",
         },
         "price_level": 2,
-        "rating": 4.3,
+        "rating": 2.3,
         "reference": "",
         "scope": "",
         "types": [

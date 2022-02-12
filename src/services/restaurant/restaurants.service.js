@@ -30,8 +30,9 @@ export const restaurantsTransform = ({ results = [] }) => {
     return {
       ...restaurant,
       address: restaurant.vicinity,
-      isOpen: restaurant.opening_hours && restaurant.opening_hours.open_now,
-      isClosedTemporarily: results.business_status === "CLOSED_TEMPORARILY",
+      rating: restaurant.rating,
+      isOpenNow: restaurant.opening_hours && restaurant.opening_hours.open_now,
+      isClosedTemporarily: restaurant.business_status === "CLOSED_TEMPORARILY",
     };
   });
   return camelize(mappedResults);
