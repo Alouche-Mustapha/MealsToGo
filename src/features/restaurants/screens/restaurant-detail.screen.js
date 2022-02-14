@@ -62,7 +62,7 @@ export const RestaurantDetailScreen = ({ route }) => {
           }}
           left={() => (
             <List.Icon
-              color={!dinnerExpanded ? "blck" : "white"}
+              color={!dinnerExpanded ? "black" : "white"}
               icon="food-variant"
             />
           )}

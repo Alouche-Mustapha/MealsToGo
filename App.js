@@ -1,4 +1,3 @@
-import { StatusBar, Text } from "react-native";
 import { ThemeProvider } from "styled-components/native";
 import {
   useFonts as useOswald,
@@ -35,7 +34,7 @@ export default function App() {
             <Navigation />
           </RestaurantsContextProvider>
         </LocationContextProvider>
-        <StatusBar backgroundColor={theme.colors.brand.primary} />
+        {/* <StatusBar backgroundColor={theme.colors.brand.primary} /> */}
       </ThemeProvider>
     </>
   );

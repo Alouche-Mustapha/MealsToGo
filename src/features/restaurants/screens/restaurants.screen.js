@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { FlatList, Pressable } from "react-native";
+import { FlatList, Pressable, StatusBar } from "react-native";
 import { ActivityIndicator, Colors } from "react-native-paper";
 import styled from "styled-components/native";
 
@@ -44,7 +44,7 @@ export const RestaurantsScreen = ({ navigation }) => {
   */
   const { restaurants, isLoading } = useContext(RestaurantsContext); //The context is an object with three props
   return (
-    <SafeArea>
+    <SafeArea style={{ paddingTop: StatusBar.currentHeight }}>
       {/*Render the activity indicator will loading the data*/}
       {isLoading && (
         <LoadingContainer>
