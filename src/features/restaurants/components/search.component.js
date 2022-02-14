@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components/native";
 import { Searchbar } from "react-native-paper";
 
@@ -20,6 +20,12 @@ export const Search = () => {
   /* "searchKeyword" is going to take the keyword from "LocationContext" that is by default
   "san francisco", or the text that we type in the searchbar */
   const [searchKeyword, setSearchKeyword] = useState(keyword);
+
+  /*When the search keyword changed (from inside the restaurant screen or from the map screen) we need to set the search
+  keyword to the remaining keyword*/
+  useEffect(() => {
+    setSearchKeyword(keyword);
+  }, [keyword]);
 
   return (
     <SearchContainer>

@@ -27,7 +27,7 @@ export const locationTransform = (result) => {
   */
   const { lat, lng } = geometry.location;
 
-  return { lat, lng };
+  return { lat, lng, viewport: geometry.viewport };
 };
 
 /*
