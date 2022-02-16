@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 import { Searchbar } from "react-native-paper";
 
 import { LocationContext } from "../../../services/location/location.context";
-import { Dimensions, SafeAreaView, StatusBar } from "react-native";
+import { Dimensions, StatusBar } from "react-native";
 
 /*The search container inside the map screen*/
 const SearchContainer = styled.View`

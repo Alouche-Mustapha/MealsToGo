@@ -21,7 +21,7 @@ export default function App() {
   });
 
   if (!oswaldLoaded || !latoLoaded) {
-    return null;
+      return null;
   }
 
   return (
