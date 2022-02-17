@@ -1,11 +1,11 @@
-import React, { useContext, useState, useEffect } from "react";
-import { Pressable, Keyboard, Dimensions } from "react-native";
+import React, { useContext, useEffect, useState } from "react";
+import { Dimensions, Keyboard, Pressable } from "react-native";
 import MapView from "react-native-maps";
 import styled from "styled-components/native";
-
-import { Search } from "../components/search.component";
 import { LocationContext } from "../../../services/location/location.context";
 import { RestaurantsContext } from "../../../services/restaurant/restaurants.context";
+import { MapCallout } from "../components/map-callout.component";
+import { Search } from "../components/search.component";
 
 /*MapView is what wrap the map in our app*/
 const Map = styled(MapView)`
@@ -17,7 +17,7 @@ const pressed = () => {
   Keyboard.dismiss();
 };
 
-export const MapScreen = () => {
+export const MapScreen = ({ navigation }) => {
   /*We need the location context and restaurants context*/
   const { location } = useContext(LocationContext);
   const { restaurants = [] } = useContext(RestaurantsContext);
@@ -50,10 +50,31 @@ export const MapScreen = () => {
             longitudeDelta: 0.02,
           }}
         >
-          {/* {" "} */}
           {/*Mapping on the restaurants array and get the item (restaurant)*/}
           {restaurants.map((restaurant) => {
-            return null;
+            /*This is where we are going to render the detail view*/
+            return (
+              <MapView.Marker
+                key={restaurant.name}
+                /*The title on top of the marker (map call out)*/
+                title={restaurant.name}
+                /*The coordinates where the pin is going to render*/
+                coordinate={{
+                  latitude: restaurant.geometry.location.lat,
+                  longitude: restaurant.geometry.location.lng,
+                }}
+              >
+                {/*Outside the "MapView.Callout" the informations are not going to render as a tooltip but as the marker itself*/}
+                {/*Where to render the tolltips for each item*/}
+                <MapView.Callout
+                  onPress={() =>
+                    navigation.navigate("RestaurantDetail", { restaurant })
+                  }
+                >
+                  <MapCallout restaurant={restaurant} />
+                </MapView.Callout>
+              </MapView.Marker>
+            );
           })}
         </Map>
       </Pressable>
