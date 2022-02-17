@@ -3,9 +3,11 @@ import { Image, Text, View } from "react-native";
 import { Card } from "react-native-paper";
 import styled from "styled-components/native";
 import { SvgXml } from "react-native-svg";
+
 import star from "../../../../assets/star";
 import open from "../../../../assets/open";
 import closed from "../../../../assets/closed";
+import { Favourite } from "../../../components/favourites/favourite.component";
 
 /*Create a styled component with the name 'Title' as a 'Text' from 'StyledComponents'*/
 const Title = styled.Text`
@@ -51,7 +53,7 @@ const SectionEnd = styled.View`
   justify-content: flex-end;
 `;
 
-export const RestaurantInfoCard = ({ restaurant = {} }) => {
+export const RestaurantInfoCard = ({ restaurant = {}, inDetailsScreen }) => {
   /*
   This const in an object that is directly initialized with some initial data.
   If the 'restaurant' object had some propreties with the same name as the initial data, they will
@@ -76,6 +78,7 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
 
   return (
     <RestaurantCard elevation={5}>
+      <Favourite restaurant={restaurant} inDetailsScreen={inDetailsScreen} />
       <RestaurantCardCover key={name} source={{ uri: photos[0] }} />
       <Info>
         <Title>{name}</Title>

@@ -19,7 +19,7 @@ export const RestaurantDetailScreen = ({ route }) => {
   return (
     <SafeArea>
       {/*Restaurant card on top of the screen*/}
-      <RestaurantInfoCard restaurant={restaurant} />
+      <RestaurantInfoCard restaurant={restaurant} inDetailsScreen={true} />
       <ScrollView style={{ marginTop: 10 }}>
         <List.Accordion
           title="Breakfast"

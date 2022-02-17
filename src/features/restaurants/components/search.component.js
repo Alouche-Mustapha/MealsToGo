@@ -10,7 +10,7 @@ const SearchContainer = styled.View`
   border-radius: 5px;
 `;
 
-export const Search = () => {
+export const Search = ({ isFavouritesToggled, onFavouritesToggle }) => {
   /*
   When submiting the search, the keyword is gonig to be stored in this "keyword" property.
   We are going to trigger the "search" function at a certain point with a keyword from the 
@@ -30,6 +30,9 @@ export const Search = () => {
   return (
     <SearchContainer>
       <Searchbar
+        /*Check if the the favourites button is toggled or not and set the specific icon to the search bar*/
+        icon={isFavouritesToggled ? "heart" : "heart-outline"}
+        onIconPress={onFavouritesToggle}
         placeholder="Search for a location"
         value={searchKeyword}
         onSubmitEditing={() => {

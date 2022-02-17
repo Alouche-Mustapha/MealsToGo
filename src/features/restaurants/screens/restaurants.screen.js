@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { FlatList, Pressable, StatusBar } from "react-native";
 import { ActivityIndicator, Colors } from "react-native-paper";
 import styled from "styled-components/native";
@@ -7,6 +7,8 @@ import { RestaurantInfoCard } from "../components/reataurant-info-card.component
 import { SafeArea } from "../../../components/utility/safe-area.component";
 import { RestaurantsContext } from "../../../services/restaurant/restaurants.context";
 import { Search } from "../components/search.component";
+import { FavouritesBar } from "../../../components/favourites/favourites-bar.component";
+import { FavouritesContext } from "../../../services/favourites/favourites.context";
 
 /*Some styled components that can be used,every styled componenet has an obeject called "props"*/
 const Space = styled.View`
@@ -43,6 +45,9 @@ export const RestaurantsScreen = ({ navigation }) => {
   provide it to all the children, and now the "RestaurantScreen" component is using the context to set up our screen 
   */
   const { restaurants, isLoading } = useContext(RestaurantsContext); //The context is an object with three props
+  const { favourites } = useContext(FavouritesContext);
+  const [isToggled, setIsToggled] = useState(false);
+
   return (
     <SafeArea style={{ paddingTop: StatusBar.currentHeight }}>
       {/*Render the activity indicator will loading the data*/}
@@ -51,8 +56,18 @@ export const RestaurantsScreen = ({ navigation }) => {
           <Loading size={50} animating={true} color={Colors.blue300} />
         </LoadingContainer>
       )}
-      {/*The search abr on top of the screen*/}
-      <Search />
+      {/*The search bar on top of the screen that wil l change thye state of isTogged every time the heart icon is clicked*/}
+      <Search
+        isFavouritesToggled={isToggled}
+        onFavouritesToggle={() => setIsToggled(!isToggled)}
+      />
+      {/*The list of favorites*/}
+      {isToggled && (
+        <FavouritesBar
+          favourites={favourites}
+          onNavigate={navigation.navigate}
+        />
+      )}
       {/*This a list that automatically iterate on the data array and renders every item of it*/}
       <RestaurantList
         data={restaurants}
@@ -72,7 +87,7 @@ export const RestaurantsScreen = ({ navigation }) => {
                 declared in "restaurant-info.component.js", so we need to give hin the "item" that is also an object from the 
                 array "restaurants"
                 */}
-                <RestaurantInfoCard restaurant={item} />
+                <RestaurantInfoCard restaurant={item} inDetailsScreen={false} />
               </Space>
             </Pressable>
           );

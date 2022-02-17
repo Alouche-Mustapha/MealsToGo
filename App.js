@@ -9,6 +9,7 @@ import { theme } from "./src/infrastructure/theme";
 import { Navigation } from "./src/infrastructure/navigation";
 import { RestaurantsContextProvider } from "./src/services/restaurant/restaurants.context";
 import { LocationContextProvider } from "./src/services/location/location.context";
+import { FavouritesContextProvider } from "./src/services/favourites/favourites.context";
 
 export default function App() {
   /*Use the wanted fonts and return null if they are not loaded*/
@@ -21,20 +22,22 @@ export default function App() {
   });
 
   if (!oswaldLoaded || !latoLoaded) {
-      return null;
+    return null;
   }
 
   return (
     <>
       {/*Provide a theme for the hole components inside the ThemeProvider component*/}
       <ThemeProvider theme={theme}>
-        <LocationContextProvider>
-          {/*Provide the context created in "restaurants.context.js" to all the children in the tree*/}
-          <RestaurantsContextProvider>
-            <Navigation />
-          </RestaurantsContextProvider>
-        </LocationContextProvider>
-        {/* <StatusBar backgroundColor={theme.colors.brand.primary} /> */}
+        <FavouritesContextProvider>
+          <LocationContextProvider>
+            {/*Provide the context created in "restaurants.context.js" to all the children in the tree*/}
+            <RestaurantsContextProvider>
+              <Navigation />
+            </RestaurantsContextProvider>
+          </LocationContextProvider>
+          {/* <StatusBar backgroundColor={theme.colors.brand.primary} /> */}
+        </FavouritesContextProvider>
       </ThemeProvider>
     </>
   );
