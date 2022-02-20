@@ -21,6 +21,7 @@
     "expo": "~44.0.0",
     "expo-font": "~10.0.4",
     "expo-status-bar": "~1.2.0",
+    "firebase": "^9.6.7",
     "node-fetch": "^3.2.0",
     "package-name": "^0.1.0",
     "react": "17.0.1",
@@ -31,7 +32,7 @@
     "react-native-paper": "^4.11.2",
     "react-native-safe-area-context": "3.3.2",
     "react-native-screens": "~3.10.1",
-    "react-native-svg": "^12.1.1",
+    "react-native-svg": "12.1.1",
     "react-native-webview": "11.15.0",
     "styled-components": "^5.3.3"
   },

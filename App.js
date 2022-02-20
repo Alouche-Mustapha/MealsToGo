@@ -1,3 +1,4 @@
+import React from "react";
 import { ThemeProvider } from "styled-components/native";
 import {
   useFonts as useOswald,
@@ -10,6 +11,7 @@ import { Navigation } from "./src/infrastructure/navigation";
 import { RestaurantsContextProvider } from "./src/services/restaurant/restaurants.context";
 import { LocationContextProvider } from "./src/services/location/location.context";
 import { FavouritesContextProvider } from "./src/services/favourites/favourites.context";
+import { AuthenticationContextProvider } from "./src/services/authentication/authentication.context";
 
 export default function App() {
   /*Use the wanted fonts and return null if they are not loaded*/
@@ -29,15 +31,17 @@ export default function App() {
     <>
       {/*Provide a theme for the hole components inside the ThemeProvider component*/}
       <ThemeProvider theme={theme}>
-        <FavouritesContextProvider>
-          <LocationContextProvider>
-            {/*Provide the context created in "restaurants.context.js" to all the children in the tree*/}
-            <RestaurantsContextProvider>
-              <Navigation />
-            </RestaurantsContextProvider>
-          </LocationContextProvider>
-          {/* <StatusBar backgroundColor={theme.colors.brand.primary} /> */}
-        </FavouritesContextProvider>
+        <AuthenticationContextProvider>
+          <FavouritesContextProvider>
+            <LocationContextProvider>
+              {/*Provide the context created in "restaurants.context.js" to all the children in the tree*/}
+              <RestaurantsContextProvider>
+                <Navigation />
+              </RestaurantsContextProvider>
+            </LocationContextProvider>
+            {/* <StatusBar backgroundColor={theme.colors.brand.primary} /> */}
+          </FavouritesContextProvider>
+        </AuthenticationContextProvider>
       </ThemeProvider>
     </>
   );
