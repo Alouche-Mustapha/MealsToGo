@@ -17,7 +17,7 @@ export const AccountContainer = styled.View`
   background-color: rgba(255, 255, 255, 0.5);
   padding-horizontal: ${(props) => props.theme.space[3]};
   padding-top: ${(props) => props.theme.space[3]};
-  margin-top: ${(props) => props.theme.space[2]};
+  margin-vertical: ${(props) => props.theme.space[3]};
 `;
 
 /*We need to import "colors" to make the button attrs acces to them, but the styled component already has the prop "props" that containe the theme*/
