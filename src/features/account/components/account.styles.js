@@ -42,9 +42,18 @@ export const Title = styled(Text)`
   font-family: "Oswald_400Regular";
   margin-bottom: 20px;
 `;
+
 export const ErrorContainer = styled.View`
   align-items: center;
   align-self: center;
   margin-top: ${(props) => props.theme.space[3]};
   margin-bottom: ${(props) => props.theme.space[3]};
+`;
+
+export const AnimationWrapper = styled.View`
+  width: 100%;
+  height: 50%;
+  position: absolute;
+  top: 0%;
+}}
 `;
