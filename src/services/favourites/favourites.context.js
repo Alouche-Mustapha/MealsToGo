@@ -1,28 +1,33 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useEffect, useContext } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+
+import { AuthenticationContext } from "../../services/authentication/authentication.context";
 
 /*Create the context that is going to hold the favourites*/
 export const FavouritesContext = createContext();
 
 /*The provider that going to wrap "app.js" in order to supply the favourites to the tree*/
 export const FavouritesContextProvider = ({ children }) => {
+  /*Pull the current user to set his own favourites list*/
+  const { user } = useContext(AuthenticationContext);
+
   /*The favourites as an array*/
   const [favourites, setFavourites] = useState([]);
 
   /*Save the favorites array in local storage*/
-  const saveFavourites = async (value) => {
+  const saveFavourites = async (value, uid) => {
     try {
       const jsonValue = JSON.stringify(value);
-      await AsyncStorage.setItem("@favourites", jsonValue);
+      await AsyncStorage.setItem(`@favourites-${uid}`, jsonValue);
     } catch (e) {
       console.log("Error storing", e);
     }
   };
 
   /*Load the favourites array from local storage*/
-  const loadFavourites = async () => {
+  const loadFavourites = async (uid) => {
     try {
-      const value = await AsyncStorage.getItem("@favourites");
+      const value = await AsyncStorage.getItem(`@favourites-${uid}`);
       if (value !== null) {
         setFavourites(JSON.parse(value));
       }
@@ -47,15 +52,19 @@ export const FavouritesContextProvider = ({ children }) => {
     setFavourites(newFavourites);
   };
 
-  /*Load the favourites on the very first mount of our context*/
+  /*Load the favourites on the very first mount of our context for every user's state changes*/
   useEffect(() => {
-    loadFavourites();
-  }, []);
+    if (user) {
+      loadFavourites(user.uid);
+    }
+  }, [user]);
 
   /*Save the favourites every time the array is updated*/
   useEffect(() => {
-    saveFavourites(favourites);
-  }, [favourites]);
+    if (user) {
+      saveFavourites(favourites, user.uid);
+    }
+  }, [favourites, user]);
 
   return (
     <FavouritesContext.Provider

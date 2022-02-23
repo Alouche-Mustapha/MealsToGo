@@ -7,6 +7,9 @@ import { SafeArea } from "../../components/utility/safe-area.component";
 import { RestaurantsNavigator } from "./restaurants.navigator";
 import { MapScreen } from "../../features/map/screens/map.screen";
 import { AuthenticationContext } from "../../services/authentication/authentication.context";
+import { RestaurantsContextProvider } from "../../services/restaurant/restaurants.context";
+import { LocationContextProvider } from "../../services/location/location.context";
+import { FavouritesContextProvider } from "../../services/favourites/favourites.context";
 
 /*Create a bottom navigation bar*/
 const Tab = createBottomTabNavigator();
@@ -46,17 +49,23 @@ const Settings = () => {
 };
 
 export const AppNavigator = () => (
-  <Tab.Navigator screenOptions={createScreenOptions}>
-    <Tab.Screen name="Restaurants" component={RestaurantsNavigator} />
-    <Tab.Screen
-      name="Map"
-      component={MapScreen}
-      options={{ headerShown: false }}
-    />
-    <Tab.Screen
-      name="Settings"
-      component={Settings}
-      options={{ headerShown: true }}
-    />
-  </Tab.Navigator>
+  <FavouritesContextProvider>
+    <LocationContextProvider>
+      <RestaurantsContextProvider>
+        <Tab.Navigator screenOptions={createScreenOptions}>
+          <Tab.Screen name="Restaurants" component={RestaurantsNavigator} />
+          <Tab.Screen
+            name="Map"
+            component={MapScreen}
+            options={{ headerShown: false }}
+          />
+          <Tab.Screen
+            name="Settings"
+            component={Settings}
+            options={{ headerShown: true }}
+          />
+        </Tab.Navigator>
+      </RestaurantsContextProvider>
+    </LocationContextProvider>
+  </FavouritesContextProvider>
 );
