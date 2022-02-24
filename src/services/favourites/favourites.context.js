@@ -18,7 +18,7 @@ export const FavouritesContextProvider = ({ children }) => {
   const saveFavourites = async (value, uid) => {
     try {
       const jsonValue = JSON.stringify(value);
-      await AsyncStorage.setItem(`@favourites-${uid}`, jsonValue);
+      await AsyncStorage.setItem("@favourites", jsonValue);
     } catch (e) {
       console.log("Error storing", e);
     }
@@ -27,7 +27,7 @@ export const FavouritesContextProvider = ({ children }) => {
   /*Load the favourites array from local storage*/
   const loadFavourites = async (uid) => {
     try {
-      const value = await AsyncStorage.getItem(`@favourites-${uid}`);
+      const value = await AsyncStorage.getItem("@favourites");
       if (value !== null) {
         setFavourites(JSON.parse(value));
       }

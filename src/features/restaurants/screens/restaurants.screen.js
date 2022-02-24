@@ -9,6 +9,7 @@ import { RestaurantsContext } from "../../../services/restaurant/restaurants.con
 import { Search } from "../components/search.component";
 import { FavouritesBar } from "../../../components/favourites/favourites-bar.component";
 import { FavouritesContext } from "../../../services/favourites/favourites.context";
+import { FadeInView } from "../../../components/animations/fade.animation";
 
 /*Some styled components that can be used,every styled componenet has an obeject called "props"*/
 const Space = styled.View`
@@ -77,7 +78,7 @@ export const RestaurantsScreen = ({ navigation }) => {
             <Pressable
               onPress={() =>
                 /*When navigating to the next screen in the stack we will pass the current restaurant
-                as a property of an object to be able to retieve them in the restaurant detail*/
+                  as a property of an object to be able to retieve them in the restaurant detail*/
                 navigation.navigate("RestaurantDetail", { restaurant: item })
               }
             >
@@ -86,8 +87,13 @@ export const RestaurantsScreen = ({ navigation }) => {
                 The "RestaurantInfoCard" have the propretie "restaurant" that is an object that will be given to the default one
                 declared in "restaurant-info.component.js", so we need to give hin the "item" that is also an object from the 
                 array "restaurants"
-                */}
-                <RestaurantInfoCard restaurant={item} inDetailsScreen={false} />
+              */}
+                <FadeInView>
+                  <RestaurantInfoCard
+                    restaurant={item}
+                    inDetailsScreen={false}
+                  />
+                </FadeInView>
               </Space>
             </Pressable>
           );
